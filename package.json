@@ -1,0 +1,23 @@
+{
+  "name": "javascript-code-snippets",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/santosh-mnrec/javascript-code-snippets.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/santosh-mnrec/javascript-code-snippets/issues"
+  },
+  "homepage": "https://github.com/santosh-mnrec/javascript-code-snippets#readme"
+}
