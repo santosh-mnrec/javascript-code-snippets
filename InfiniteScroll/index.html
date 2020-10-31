@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        .item {
+  background: #FFF;
+  border: 1px solid #666;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#sentinel {
+  width: 1px;
+  height: 1px;
+}
+
+#scroller {
+  height: 400px;
+  overflow-y: scroll;
+}
+    </style>
+  </head>
+  <body>
+    <div id="scroller">
+     
+    </div>
+    <div id="sentinel"></div>
+    <script>
+      var page = 1;
+      var items = [];
+      var scroller = document.querySelector("#scroller");
+      var sentinel = document.querySelector("#sentinel");
+      async function intersected() {
+        const res = await fetch(
+          `https://jsonplaceholder.typicode.com/comments?_page=${this.page}&_limit=10`
+        );
+
+        this.page++;
+        const items = await res.json();
+        console.log(items);
+        this.items = [...this.items, ...items];
+
+        for (var i = 0; i < this.items.length; i++) {
+          var newItem = document.createElement("div");
+          newItem.classList.add("item");
+          newItem.textContent = "Item " + i;
+          scroller.appendChild(newItem);
+        }
+      }
+      var intersectionObserver = new IntersectionObserver(async (entries) => {
+        // If the browser is busy while scrolling happens, multiple entries can
+        // accumulate between invocations of this callback. As long as any one
+        // of the notifications reports the sentinel within the scrolling viewport,
+        // we add more content.
+        console.log(entries);
+        if (entries.some((entry) => entry.intersectionRatio > .1)) {
+          //loadItems(10);
+          // appendChild will move the existing element, so there is no need to
+          // remove it first.
+          // scroller.appendChild(sentinel);
+          await intersected();
+          console.log("Loaded up to item " + page);
+        }
+      });
+      intersectionObserver.observe(sentinel);
+    </script>
+  </body>
+</html>
