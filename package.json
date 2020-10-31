@@ -19,5 +19,9 @@
   "bugs": {
     "url": "https://github.com/santosh-mnrec/javascript-code-snippets/issues"
   },
-  "homepage": "https://github.com/santosh-mnrec/javascript-code-snippets#readme"
+  "homepage": "https://github.com/santosh-mnrec/javascript-code-snippets#readme",
+  "devDependencies": {
+    "jest": "^26.6.1",
+    "jest-fetch-mock": "^3.0.3"
+  }
 }

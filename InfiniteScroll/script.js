@@ -1,15 +1,16 @@
 var page = 1;
 const App = (() => {
   function loadPost() {
-    var api = `https://jsonplaceholder.typicode.com/posts?_page=${page}&limit=50`;
-    fetch(api)
+    var url = `https://jsonplaceholder.typicode.com/posts?_page=${page}&limit=50`;
+    return fetch(url)
       .then((res) => res.json())
       .then((data) => {
+        data;
         if (data.length == 0) {
           alert("done");
           return;
         }
-        render(data);
+        api.render(data);
       })
       .catch((err) => console.log(err));
   }
@@ -34,18 +35,18 @@ const App = (() => {
       entries.forEach((entry) => {
         if (entry.intersectionRatio > 0) {
           page++;
-          loadPost();
+          api.loadPost();
         }
       });
     }, options);
     observer.observe(document.querySelector("#infinite-scroll-trigger"));
   });
-  const api= {
+  const api = {
     loadPost,
     render,
   };
-  if(typeof module !== "undefined"){
-      module.exports=api;
+  if (typeof module !== "undefined") {
+    module.exports = api;
   }
-  return api;;
+  return api;
 })();

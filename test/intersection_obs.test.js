@@ -1,17 +1,18 @@
-const api=require("../InfiniteScroll/script");
-// This is just dummy data - change its shape in a format that your API renders.
-const dummyMoviesData = [
-    {title: 'some-tilte-1', body: 'some-1'},
-    {title: 'some-tilte-2', body: 'some-2'},
-    {title: 'some-tilte-3', body: 'some-3'}
-];
-global.fetch = jest.fn(() => Promise.resolve(dummyMoviesData));
-
-describe('Intersection Observer',()=>{
-
-    it('should call fetc',async()=>{
-
-        const res=api.loadPost();
+const api = require("../InfiniteScroll/script");
+const fetchMock=require('jest-fetch-mock');
+fetchMock.enableMocks();
+describe("Intersection Observer", () => {
+    beforeEach(() => {
+        fetch.resetMocks();
+      });
+  it("should call fetc", async () => {
+    fetch.mockResponseOnce(JSON.stringify([ {rates: { CAD: 1.42 } }]));
+    
+    var renderMock=jest.spyOn(api,'render');
+    const res = await api.loadPost();
     console.log(res);
-    })
-})
+   
+    expect(renderMock).toBeCalledTimes(1);
+
+  });
+});
