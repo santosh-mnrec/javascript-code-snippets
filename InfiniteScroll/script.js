@@ -25,25 +25,29 @@ const App = (() => {
 
     ipsum.appendChild(div);
   }
-  window.addEventListener("DOMContentLoaded", (event) => {
-    const options = {
-      root: document.querySelector("#container"),
-      threshold: 0.8,
-    };
+  function init(){
+    window.addEventListener("DOMContentLoaded", (event) => {
+      const options = {
+        root: document.querySelector("#container"),
+        threshold: 0.8,
+      };
+  
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.intersectionRatio > 0) {
+            page++;
+            api.loadPost();
+          }
+        });
+      }, options);
+      observer.observe(document.querySelector("#infinite-scroll-trigger"));
+    });
+  }
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.intersectionRatio > 0) {
-          page++;
-          api.loadPost();
-        }
-      });
-    }, options);
-    observer.observe(document.querySelector("#infinite-scroll-trigger"));
-  });
   const api = {
     loadPost,
     render,
+    init,
   };
   if (typeof module !== "undefined") {
     module.exports = api;
