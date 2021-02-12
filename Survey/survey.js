@@ -2,25 +2,22 @@
 // Dell.Deals.lazyMicroSurvey = Dell.Deals.lazyMicroSurvey || {};
 var $ = require("jquery");
 const Survey = function () {
-  
+
   var $survey = $("#microsurvey"),
     $scriptUrl = $survey.attr("data-micro-survey-url"),
     observer;
 
   const surveyIntersection = (survey) => {
     let targetSurvey;
-    console.log(survey[0].isIntersecting);
     if (survey[0].isIntersecting) {
       targetSurvey = survey[0].target;
-      console.log(targetSurvey);
       if (targetSurvey.hasAttribute("data-micro-survey-url")) {
-        console.log("Iniside");
         targetSurvey.removeAttribute("data-micro-survey-url");
-        console.log(m.injectSurveyScript);
-        m.injectSurveyScript();
-    
+         m.injectSurveyScript();
+
       }
-      // observer.unobserve(targetSurvey);
+      if (observer)
+        observer.unobserve(targetSurvey);
     }
   }
 
